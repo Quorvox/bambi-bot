@@ -1,0 +1,18 @@
+{
+  "name": "bimi-bot-vps",
+  "version": "2.0.0",
+  "description": "Bambi Bot VPS - lightweight Node polling + built-in SQLite (<530MB RAM, <30GB disk)",
+  "main": "src/index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node --max-old-space-size=400 src/index.js",
+    "dev": "node src/index.js",
+    "check": "node --check src/index.js && node --check src/kv.js && node --check src/core.js && echo OK"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

@@ -1,0 +1,31 @@
+[Unit]
+Description=Bambi Telegram Bot (VPS, polling + SQLite)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=bimi
+Group=bimi
+# минимум прав: только своя папка на запись
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/opt/bimi-bot/data
+PrivateTmp=true
+WorkingDirectory=/opt/bimi-bot
+ExecStart=/usr/bin/node --max-old-space-size=400 src/index.js
+Restart=always
+RestartSec=3
+# лимит оперативки 530МБ
+MemoryMax=530M
+MemoryHigh=450M
+# Защита: при превышении — рестарт, а не смерть сервера
+# Логи в journald (авторотация, диск не забьётся)
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=bimi-bot
+# Переменные из /opt/bimi-bot/.env подхватывает dotenv в коде
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target
